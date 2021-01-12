@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GeneralInsuranceModelStoreContainer" CdmEntityContainer="GeneralInsuranceEntities1">
+    <EntitySetMapping Name="ADMINS">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.ADMIN">
+        <MappingFragment StoreEntitySet="ADMINS">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CLAIMs">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.CLAIM">
+        <MappingFragment StoreEntitySet="CLAIM">
+          <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+          <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="ClaimAmount" ColumnName="ClaimAmount" />
+          <ScalarProperty Name="ReasonToClaim" ColumnName="ReasonToClaim" />
+          <ScalarProperty Name="InsuranceId" ColumnName="InsuranceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INSURANCEs">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.INSURANCE">
+        <MappingFragment StoreEntitySet="INSURANCE">
+          <ScalarProperty Name="InsuranceId" ColumnName="InsuranceId" />
+          <ScalarProperty Name="Plans" ColumnName="Plans" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="PolicyStartDate" ColumnName="PolicyStartDate" />
+          <ScalarProperty Name="PolicyEndDate" ColumnName="PolicyEndDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MotorId" ColumnName="MotorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOTORs">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.MOTOR">
+        <MappingFragment StoreEntitySet="MOTOR">
+          <ScalarProperty Name="MotorId" ColumnName="MotorId" />
+          <ScalarProperty Name="ManufactureYear" ColumnName="ManufactureYear" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+          <ScalarProperty Name="EngineNo" ColumnName="EngineNo" />
+          <ScalarProperty Name="ChasisNo" ColumnName="ChasisNo" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.USER">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DrivingLiscence" ColumnName="DrivingLiscence" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="GeneralInsuranceModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Proc_ClaimHistory" FunctionName="GeneralInsuranceModel.Store.Proc_ClaimHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GeneralInsuranceModel.Proc_ClaimHistory_Result">
+          <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+          <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="ClaimAmount" ColumnName="ClaimAmount" />
+          <ScalarProperty Name="ReasonToClaim" ColumnName="ReasonToClaim" />
+          <ScalarProperty Name="InsuranceId" ColumnName="InsuranceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Proc_InsDetails" FunctionName="GeneralInsuranceModel.Store.Proc_InsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GeneralInsuranceModel.Proc_InsDetails_Result">
+          <ScalarProperty Name="InsuranceId" ColumnName="InsuranceId" />
+          <ScalarProperty Name="Plans" ColumnName="Plans" />
+          <ScalarProperty Name="MotorId" ColumnName="MotorId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GeneralInsuranceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ADMIN">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CLAIM">
+    <Key>
+      <PropertyRef Name="ClaimId" />
+    </Key>
+    <Property Name="ClaimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClaimDate" Type="DateTime" Precision="3" />
+    <Property Name="ApprovalStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ClaimAmount" Type="Int32" />
+    <Property Name="ReasonToClaim" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="InsuranceId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="INSURANCE" Relationship="Self.FK__CLAIM__Insurance__1A14E395" FromRole="CLAIM" ToRole="INSURANCE" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__CLAIM__UserId__1920BF5C" FromRole="CLAIM" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="INSURANCE">
+    <Key>
+      <PropertyRef Name="InsuranceId" />
+    </Key>
+    <Property Name="InsuranceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Plans" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="PolicyStartDate" Type="DateTime" Precision="3" />
+    <Property Name="PolicyEndDate" Type="DateTime" Precision="3" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="MotorId" Type="Int32" />
+    <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__Insurance__1A14E395" FromRole="INSURANCE" ToRole="CLAIM" />
+    <NavigationProperty Name="MOTOR" Relationship="Self.FK__INSURANCE__Motor__164452B1" FromRole="INSURANCE" ToRole="MOTOR" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__INSURANCE__UserI__15502E78" FromRole="INSURANCE" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="MOTOR">
+    <Key>
+      <PropertyRef Name="MotorId" />
+    </Key>
+    <Property Name="MotorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManufactureYear" Type="Int32" />
+    <Property Name="Model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+    <Property Name="RegNo" Type="Int32" />
+    <Property Name="EngineNo" Type="Int32" />
+    <Property Name="ChasisNo" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__Motor__164452B1" FromRole="MOTOR" ToRole="INSURANCE" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__MOTOR__UserId__1273C1CD" FromRole="MOTOR" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="Int32" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DrivingLiscence" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__UserId__1920BF5C" FromRole="USERS" ToRole="CLAIM" />
+    <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__UserI__15502E78" FromRole="USERS" ToRole="INSURANCE" />
+    <NavigationProperty Name="MOTORs" Relationship="Self.FK__MOTOR__UserId__1273C1CD" FromRole="USERS" ToRole="MOTOR" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__1DE57479" FromRole="USERS" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__Transacti__UserI__1DE57479" FromRole="Transactions" ToRole="USERS" />
+  </EntityType>
+  <Association Name="FK__CLAIM__Insurance__1A14E395">
+    <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="0..1" />
+    <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INSURANCE">
+        <PropertyRef Name="InsuranceId" />
+      </Principal>
+      <Dependent Role="CLAIM">
+        <PropertyRef Name="InsuranceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CLAIM__UserId__1920BF5C">
+    <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
+    <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CLAIM">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSURANCE__Motor__164452B1">
+    <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="0..1" />
+    <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOTOR">
+        <PropertyRef Name="MotorId" />
+      </Principal>
+      <Dependent Role="INSURANCE">
+        <PropertyRef Name="MotorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSURANCE__UserI__15502E78">
+    <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
+    <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="INSURANCE">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MOTOR__UserId__1273C1CD">
+    <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
+    <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="MOTOR">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__UserI__1DE57479">
+    <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GeneralInsuranceEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ADMINS" EntityType="Self.ADMIN" />
+    <EntitySet Name="CLAIMs" EntityType="Self.CLAIM" />
+    <EntitySet Name="INSURANCEs" EntityType="Self.INSURANCE" />
+    <EntitySet Name="MOTORs" EntityType="Self.MOTOR" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <AssociationSet Name="FK__CLAIM__Insurance__1A14E395" Association="Self.FK__CLAIM__Insurance__1A14E395">
+      <End Role="INSURANCE" EntitySet="INSURANCEs" />
+      <End Role="CLAIM" EntitySet="CLAIMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CLAIM__UserId__1920BF5C" Association="Self.FK__CLAIM__UserId__1920BF5C">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="CLAIM" EntitySet="CLAIMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSURANCE__Motor__164452B1" Association="Self.FK__INSURANCE__Motor__164452B1">
+      <End Role="MOTOR" EntitySet="MOTORs" />
+      <End Role="INSURANCE" EntitySet="INSURANCEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSURANCE__UserI__15502E78" Association="Self.FK__INSURANCE__UserI__15502E78">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="INSURANCE" EntitySet="INSURANCEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MOTOR__UserId__1273C1CD" Association="Self.FK__MOTOR__UserId__1273C1CD">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="MOTOR" EntitySet="MOTORs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__UserI__1DE57479" Association="Self.FK__Transacti__UserI__1DE57479">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <FunctionImport Name="Proc_ClaimHistory" ReturnType="Collection(GeneralInsuranceModel.Proc_ClaimHistory_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Proc_InsDetails" ReturnType="Collection(GeneralInsuranceModel.Proc_InsDetails_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Proc_ClaimHistory_Result">
+    <Property Type="Int32" Name="ClaimId" Nullable="false" />
+    <Property Type="DateTime" Name="ClaimDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ApprovalStatus" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="ClaimAmount" Nullable="true" />
+    <Property Type="String" Name="ReasonToClaim" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="InsuranceId" Nullable="true" />
+    <Property Type="Int32" Name="UserId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Proc_InsDetails_Result">
+    <Property Type="Int32" Name="InsuranceId" Nullable="false" />
+    <Property Type="String" Name="Plans" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="MotorId" Nullable="true" />
+  </ComplexType>
+</Schema>
