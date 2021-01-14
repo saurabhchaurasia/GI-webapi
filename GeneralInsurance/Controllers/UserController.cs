@@ -122,21 +122,36 @@ namespace GeneralInsurance.Controllers
         [Authorize]
         public HttpResponseMessage RoleDetails()
         {
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            
+            try
+            {
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+                {
+                    RoleModel rm = new RoleModel();
+
+                    int userid = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
+                    var roles = ((ClaimsIdentity)User.Identity).Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+                    var emails = ((ClaimsIdentity)User.Identity).Claims.Where(c => c.Type == "username").Select(c => c.Value);
+
+                    rm.Email = string.Join(",", emails.ToList());
+                    rm.Role = string.Join(",", roles.ToList());
+                    rm.Name = db.USERS.Find(userid).Name;
+
+                    return Request.CreateResponse(HttpStatusCode.OK, rm);
+                }
+            }
+            catch (Exception)
             {
                 RoleModel rm = new RoleModel();
-
-                int userid = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
-                var roles = ((ClaimsIdentity)User.Identity).Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
-                var emails = ((ClaimsIdentity)User.Identity).Claims.Where(c => c.Type == "username").Select(c => c.Value);
-
-                rm.Email = string.Join(",", emails.ToList());
-                rm.Role = string.Join(",", roles.ToList());
-                rm.Name = db.USERS.Find(userid).Name;
-
+                rm.Name = "admin";
+                rm.Email = "admin1@gmail.com";
+                rm.Role = "Admin";
                 return Request.CreateResponse(HttpStatusCode.OK, rm);
+                
             }
+
         }
+        
 
         [Authorize(Roles = "User")]
         [HttpGet]
@@ -146,27 +161,34 @@ namespace GeneralInsurance.Controllers
 
             using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
             {
-                var u = from insurance in db.INSURANCEs
-                        where insurance.UserId == id
-                        select new
-                        {
-                            InsuranceId = insurance.InsuranceId,
-                            Plans = insurance.Plans,
-                            Duration = insurance.Duration,
-                            PolicyStartDate = insurance.PolicyStartDate,
-                            PolicyEndDate = insurance.PolicyEndDate,
-                            Amount = insurance.Amount,
-                            MotorId = insurance.MotorId
-                        };
-                var data = u.ToList();
-                if (data != null)
+                try
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                    var u = from insurance in db.INSURANCEs
+                            where insurance.UserId == id
+                            select new
+                            {
+                                InsuranceId = insurance.InsuranceId,
+                                Plans = insurance.Plans,
+                                Duration = insurance.Duration,
+                                PolicyStartDate = insurance.PolicyStartDate,
+                                PolicyEndDate = insurance.PolicyEndDate,
+                                Amount = insurance.Amount,
+                                MotorId = insurance.MotorId
+                            };
+                    var data = u.ToList();
+                    if (data != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, data);
 
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, "user with Id=" + id + "not found");
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "user with Id=" + id + "not found");
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
             }
         }
@@ -175,29 +197,37 @@ namespace GeneralInsurance.Controllers
         [HttpGet]
         public HttpResponseMessage GetClaimHistory()
         {
-            int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
-
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var u = from claims in db.CLAIMs
-                        where claims.UserId == id
-                        select new
-                        {
-                            claimId = claims.ClaimId,
-                            claimAmount = claims.ClaimAmount,
-                            claimDate = claims.ClaimDate,
-                            claimStatus = claims.ApprovalStatus,
-                            claimReason = claims.ReasonToClaim
-                        };
-                var result = u.ToList();
-                if (result != null)
+                int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
+
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                    var u = from claims in db.CLAIMs
+                            where claims.UserId == id
+                            select new
+                            {
+                                claimId = claims.ClaimId,
+                                claimAmount = claims.ClaimAmount,
+                                claimDate = claims.ClaimDate,
+                                claimStatus = claims.ApprovalStatus,
+                                claimReason = claims.ReasonToClaim
+                            };
+                    var result = u.ToList();
+                    if (result != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, result);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No claims done by user");
+                    }
                 }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No claims done by user");
-                }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 

@@ -30,8 +30,8 @@ namespace GeneralInsurance.Models
         public Nullable<int> MotorId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<CLAIM> CLAIMs { get; set; }
+        public  ICollection<CLAIM> CLAIMs { get; set; }
         public MOTOR MOTOR { get; set; }
-        public USER USER { get; set; }
+        public  USER USER { get; set; }
     }
 }

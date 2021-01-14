@@ -29,9 +29,10 @@ namespace GeneralInsurance.Models
         public Nullable<int> EngineNo { get; set; }
         public Nullable<int> ChasisNo { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<long> CC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public ICollection<INSURANCE> INSURANCEs { get; set; }
-        public USER USER { get; set; }
+        public  USER USER { get; set; }
     }
 }

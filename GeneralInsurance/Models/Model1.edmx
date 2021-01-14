@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GeneralInsuranceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GeneralInsuranceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ADMINS">
           <Key>
             <PropertyRef Name="AdminId" />
@@ -51,6 +51,7 @@
           <Property Name="EngineNo" Type="int" />
           <Property Name="ChasisNo" Type="int" />
           <Property Name="UserId" Type="int" />
+          <Property Name="CC" Type="bigint" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -74,7 +75,7 @@
           <Property Name="DrivingLiscence" Type="varchar" MaxLength="255" />
           <Property Name="Password" Type="varchar" MaxLength="255" />
         </EntityType>
-        <Association Name="FK__CLAIM__Insurance__1A14E395">
+        <Association Name="FK__CLAIM__Insurance__403A8C7D">
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="0..1" />
           <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -86,7 +87,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CLAIM__UserId__1920BF5C">
+        <Association Name="FK__CLAIM__UserId__3F466844">
           <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
           <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +99,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__INSURANCE__Motor__164452B1">
+        <Association Name="FK__INSURANCE__Motor__3C69FB99">
           <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="0..1" />
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -110,7 +111,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__INSURANCE__UserI__15502E78">
+        <Association Name="FK__INSURANCE__UserI__3B75D760">
           <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -122,7 +123,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MOTOR__UserId__1273C1CD">
+        <Association Name="FK__MOTOR__UserId__38996AB5">
           <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
           <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="*" />
           <ReferentialConstraint>
@@ -134,7 +135,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Transacti__UserI__36B12243">
+        <Association Name="FK__Transacti__UserI__440B1D61">
           <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -153,33 +154,32 @@
           <EntitySet Name="MOTOR" EntityType="Self.MOTOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CLAIM__Insurance__1A14E395" Association="Self.FK__CLAIM__Insurance__1A14E395">
+          <AssociationSet Name="FK__CLAIM__Insurance__403A8C7D" Association="Self.FK__CLAIM__Insurance__403A8C7D">
             <End Role="INSURANCE" EntitySet="INSURANCE" />
             <End Role="CLAIM" EntitySet="CLAIM" />
           </AssociationSet>
-          <AssociationSet Name="FK__CLAIM__UserId__1920BF5C" Association="Self.FK__CLAIM__UserId__1920BF5C">
+          <AssociationSet Name="FK__CLAIM__UserId__3F466844" Association="Self.FK__CLAIM__UserId__3F466844">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="CLAIM" EntitySet="CLAIM" />
           </AssociationSet>
-          <AssociationSet Name="FK__INSURANCE__Motor__164452B1" Association="Self.FK__INSURANCE__Motor__164452B1">
+          <AssociationSet Name="FK__INSURANCE__Motor__3C69FB99" Association="Self.FK__INSURANCE__Motor__3C69FB99">
             <End Role="MOTOR" EntitySet="MOTOR" />
             <End Role="INSURANCE" EntitySet="INSURANCE" />
           </AssociationSet>
-          <AssociationSet Name="FK__INSURANCE__UserI__15502E78" Association="Self.FK__INSURANCE__UserI__15502E78">
+          <AssociationSet Name="FK__INSURANCE__UserI__3B75D760" Association="Self.FK__INSURANCE__UserI__3B75D760">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="INSURANCE" EntitySet="INSURANCE" />
           </AssociationSet>
-          <AssociationSet Name="FK__MOTOR__UserId__1273C1CD" Association="Self.FK__MOTOR__UserId__1273C1CD">
+          <AssociationSet Name="FK__MOTOR__UserId__38996AB5" Association="Self.FK__MOTOR__UserId__38996AB5">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="MOTOR" EntitySet="MOTOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__Transacti__UserI__36B12243" Association="Self.FK__Transacti__UserI__36B12243">
+          <AssociationSet Name="FK__Transacti__UserI__440B1D61" Association="Self.FK__Transacti__UserI__440B1D61">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GeneralInsuranceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -202,8 +202,8 @@
           <Property Name="ReasonToClaim" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="InsuranceId" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="INSURANCE" Relationship="Self.FK__CLAIM__Insurance__1A14E395" FromRole="CLAIM" ToRole="INSURANCE" />
-          <NavigationProperty Name="USER" Relationship="Self.FK__CLAIM__UserId__1920BF5C" FromRole="CLAIM" ToRole="USERS" />
+          <NavigationProperty Name="INSURANCE" Relationship="Self.FK__CLAIM__Insurance__403A8C7D" FromRole="CLAIM" ToRole="INSURANCE" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__CLAIM__UserId__3F466844" FromRole="CLAIM" ToRole="USERS" />
         </EntityType>
         <EntityType Name="INSURANCE">
           <Key>
@@ -217,9 +217,9 @@
           <Property Name="Amount" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="MotorId" Type="Int32" />
-          <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__Insurance__1A14E395" FromRole="INSURANCE" ToRole="CLAIM" />
-          <NavigationProperty Name="MOTOR" Relationship="Self.FK__INSURANCE__Motor__164452B1" FromRole="INSURANCE" ToRole="MOTOR" />
-          <NavigationProperty Name="USER" Relationship="Self.FK__INSURANCE__UserI__15502E78" FromRole="INSURANCE" ToRole="USERS" />
+          <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__Insurance__403A8C7D" FromRole="INSURANCE" ToRole="CLAIM" />
+          <NavigationProperty Name="MOTOR" Relationship="Self.FK__INSURANCE__Motor__3C69FB99" FromRole="INSURANCE" ToRole="MOTOR" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__INSURANCE__UserI__3B75D760" FromRole="INSURANCE" ToRole="USERS" />
         </EntityType>
         <EntityType Name="MOTOR">
           <Key>
@@ -234,8 +234,9 @@
           <Property Name="EngineNo" Type="Int32" />
           <Property Name="ChasisNo" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__Motor__164452B1" FromRole="MOTOR" ToRole="INSURANCE" />
-          <NavigationProperty Name="USER" Relationship="Self.FK__MOTOR__UserId__1273C1CD" FromRole="MOTOR" ToRole="USERS" />
+          <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__Motor__3C69FB99" FromRole="MOTOR" ToRole="INSURANCE" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__MOTOR__UserId__38996AB5" FromRole="MOTOR" ToRole="USERS" />
+          <Property Name="CC" Type="Int64" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -245,7 +246,7 @@
           <Property Name="Amount" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="USER" Relationship="Self.FK__Transacti__UserI__36B12243" FromRole="Transactions" ToRole="USERS" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__Transacti__UserI__440B1D61" FromRole="Transactions" ToRole="USERS" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -259,12 +260,12 @@
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DrivingLiscence" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__UserId__1920BF5C" FromRole="USERS" ToRole="CLAIM" />
-          <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__UserI__15502E78" FromRole="USERS" ToRole="INSURANCE" />
-          <NavigationProperty Name="MOTORs" Relationship="Self.FK__MOTOR__UserId__1273C1CD" FromRole="USERS" ToRole="MOTOR" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__36B12243" FromRole="USERS" ToRole="Transactions" />
+          <NavigationProperty Name="CLAIMs" Relationship="Self.FK__CLAIM__UserId__3F466844" FromRole="USERS" ToRole="CLAIM" />
+          <NavigationProperty Name="INSURANCEs" Relationship="Self.FK__INSURANCE__UserI__3B75D760" FromRole="USERS" ToRole="INSURANCE" />
+          <NavigationProperty Name="MOTORs" Relationship="Self.FK__MOTOR__UserId__38996AB5" FromRole="USERS" ToRole="MOTOR" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__440B1D61" FromRole="USERS" ToRole="Transactions" />
         </EntityType>
-        <Association Name="FK__CLAIM__Insurance__1A14E395">
+        <Association Name="FK__CLAIM__Insurance__403A8C7D">
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="0..1" />
           <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -276,7 +277,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CLAIM__UserId__1920BF5C">
+        <Association Name="FK__CLAIM__UserId__3F466844">
           <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
           <End Role="CLAIM" Type="Self.CLAIM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -288,7 +289,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__INSURANCE__Motor__164452B1">
+        <Association Name="FK__INSURANCE__Motor__3C69FB99">
           <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="0..1" />
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -300,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__INSURANCE__UserI__15502E78">
+        <Association Name="FK__INSURANCE__UserI__3B75D760">
           <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
           <End Role="INSURANCE" Type="Self.INSURANCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -312,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MOTOR__UserId__1273C1CD">
+        <Association Name="FK__MOTOR__UserId__38996AB5">
           <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
           <End Role="MOTOR" Type="Self.MOTOR" Multiplicity="*" />
           <ReferentialConstraint>
@@ -324,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Transacti__UserI__36B12243">
+        <Association Name="FK__Transacti__UserI__440B1D61">
           <End Role="USERS" Type="Self.USER" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
           <ReferentialConstraint>
@@ -343,27 +344,27 @@
           <EntitySet Name="MOTORs" EntityType="Self.MOTOR" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
           <EntitySet Name="USERS" EntityType="Self.USER" />
-          <AssociationSet Name="FK__CLAIM__Insurance__1A14E395" Association="Self.FK__CLAIM__Insurance__1A14E395">
+          <AssociationSet Name="FK__CLAIM__Insurance__403A8C7D" Association="Self.FK__CLAIM__Insurance__403A8C7D">
             <End Role="INSURANCE" EntitySet="INSURANCEs" />
             <End Role="CLAIM" EntitySet="CLAIMs" />
           </AssociationSet>
-          <AssociationSet Name="FK__CLAIM__UserId__1920BF5C" Association="Self.FK__CLAIM__UserId__1920BF5C">
+          <AssociationSet Name="FK__CLAIM__UserId__3F466844" Association="Self.FK__CLAIM__UserId__3F466844">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="CLAIM" EntitySet="CLAIMs" />
           </AssociationSet>
-          <AssociationSet Name="FK__INSURANCE__Motor__164452B1" Association="Self.FK__INSURANCE__Motor__164452B1">
+          <AssociationSet Name="FK__INSURANCE__Motor__3C69FB99" Association="Self.FK__INSURANCE__Motor__3C69FB99">
             <End Role="MOTOR" EntitySet="MOTORs" />
             <End Role="INSURANCE" EntitySet="INSURANCEs" />
           </AssociationSet>
-          <AssociationSet Name="FK__INSURANCE__UserI__15502E78" Association="Self.FK__INSURANCE__UserI__15502E78">
+          <AssociationSet Name="FK__INSURANCE__UserI__3B75D760" Association="Self.FK__INSURANCE__UserI__3B75D760">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="INSURANCE" EntitySet="INSURANCEs" />
           </AssociationSet>
-          <AssociationSet Name="FK__MOTOR__UserId__1273C1CD" Association="Self.FK__MOTOR__UserId__1273C1CD">
+          <AssociationSet Name="FK__MOTOR__UserId__38996AB5" Association="Self.FK__MOTOR__UserId__38996AB5">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="MOTOR" EntitySet="MOTORs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Transacti__UserI__36B12243" Association="Self.FK__Transacti__UserI__36B12243">
+          <AssociationSet Name="FK__Transacti__UserI__440B1D61" Association="Self.FK__Transacti__UserI__440B1D61">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
@@ -413,6 +414,7 @@
           <EntitySetMapping Name="MOTORs">
             <EntityTypeMapping TypeName="GeneralInsuranceModel.MOTOR">
               <MappingFragment StoreEntitySet="MOTOR">
+                <ScalarProperty Name="CC" ColumnName="CC" />
                 <ScalarProperty Name="MotorId" ColumnName="MotorId" />
                 <ScalarProperty Name="ManufactureYear" ColumnName="ManufactureYear" />
                 <ScalarProperty Name="Model" ColumnName="Model" />

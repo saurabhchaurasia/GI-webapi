@@ -33,12 +33,12 @@ namespace GeneralInsurance.Models
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<CLAIM> CLAIMs { get; set; }
+        public  ICollection<CLAIM> CLAIMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<INSURANCE> INSURANCEs { get; set; }
+        public  ICollection<INSURANCE> INSURANCEs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<MOTOR> MOTORs { get; set; }
+        public  ICollection<MOTOR> MOTORs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<Transaction> Transactions { get; set; }
+        public  ICollection<Transaction> Transactions { get; set; }
     }
 }

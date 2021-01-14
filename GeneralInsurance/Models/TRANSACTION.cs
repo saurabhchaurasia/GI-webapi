@@ -19,6 +19,6 @@ namespace GeneralInsurance.Models
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> UserId { get; set; }
     
-        public USER USER { get; set; }
+        public  USER USER { get; set; }
     }
 }

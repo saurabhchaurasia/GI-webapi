@@ -17,10 +17,18 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles = "Admin")]
         public HttpResponseMessage Get()
         {
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var data = db.CLAIMs.Where(b=>b.ApprovalStatus=="Pending").ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+                {
+                    var data = db.CLAIMs.Where(b => b.ApprovalStatus == "Pending").ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 
@@ -28,10 +36,18 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles = "Admin")]
         public HttpResponseMessage GetTrans()
         {
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var data = db.Transactions.ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+                {
+                    var data = db.Transactions.ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
         }
@@ -40,17 +56,39 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles = "Admin")]
         public HttpResponseMessage Get(int id)
         {
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var data = db.CLAIMs.Find(id);
-                if (data != null)
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                    var data = db.CLAIMs.Where(b => b.ClaimId == id).FirstOrDefault();
+                    var data1 = db.INSURANCEs.Find(data.InsuranceId);
+                    var data2 = db.MOTORs.Find(data1.MotorId);
+                    var db2 = new AdminEdit
+                    {
+                        ClaimId = data.ClaimId,
+                        ClaimDate = data.ClaimDate,
+                        ApprovalStatus = data.ApprovalStatus,
+                        ClaimAmount = data.ClaimAmount,
+                        ReasonToClaim = data.ReasonToClaim,
+                        ManufactureYear = data2.ManufactureYear,
+                        Model = data2.Model,
+                        Type = data2.Type,
+                        Plans = data1.Plans
+                    };
+                    if (db2 != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, db2);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, "Claim with Id= " + id + " not found");
+                    }
                 }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Claim with Id= " + id + " not found");
-                }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 

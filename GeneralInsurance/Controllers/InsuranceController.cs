@@ -58,28 +58,36 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles = "User")]
         public HttpResponseMessage GetInsuranceDetails()
         {
-            int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
-
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var u = from insurance in db.INSURANCEs
-                        where insurance.UserId == id
-                        select new
-                        {
-                            InsuranceId = insurance.InsuranceId,
-                            Plans = insurance.Plans,
-                            MotorId = insurance.MotorId
-                        };
-                var data = u.ToList();
-                if (data != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
 
-                }
-                else
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "user with Id=" + id + "not found");
+                    var u = from insurance in db.INSURANCEs
+                            where insurance.UserId == id
+                            select new
+                            {
+                                InsuranceId = insurance.InsuranceId,
+                                Plans = insurance.Plans,
+                                MotorId = insurance.MotorId
+                            };
+                    var data = u.ToList();
+                    if (data != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, data);
+
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, "user with Id=" + id + "not found");
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
         //buy page

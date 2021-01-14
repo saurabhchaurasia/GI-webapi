@@ -22,7 +22,7 @@ namespace GeneralInsurance.Models
         public Nullable<int> InsuranceId { get; set; }
         public Nullable<int> UserId { get; set; }
     
-        public INSURANCE INSURANCE { get; set; }
-        public USER USER { get; set; }
+        public  INSURANCE INSURANCE { get; set; }
+        public  USER USER { get; set; }
     }
 }

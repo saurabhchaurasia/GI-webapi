@@ -17,17 +17,25 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles ="User")]
         public HttpResponseMessage GetInsurance()
         {
-            int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
-
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var list = db.INSURANCEs.Where(i => i.UserId == id).ToList();
-                var result = new List<CLAIM_ListInsurance>();
-                foreach (var l in list)
+                int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
+
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
                 {
-                    result.Add(new CLAIM_ListInsurance { InsuranceId = l.InsuranceId, MotorId = l.MotorId, Plans = l.Plans });
+                    var list = db.INSURANCEs.Where(i => i.UserId == id).ToList();
+                    var result = new List<CLAIM_ListInsurance>();
+                    foreach (var l in list)
+                    {
+                        result.Add(new CLAIM_ListInsurance { InsuranceId = l.InsuranceId, MotorId = l.MotorId, Plans = l.Plans });
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 
@@ -35,12 +43,20 @@ namespace GeneralInsurance.Controllers
         [Authorize(Roles = "User")]
         public HttpResponseMessage GetClaimHistory()
         {
-            int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
-
-            using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+            try
             {
-                var list = db.CLAIMs.Where(c => c.UserId == id).ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, list);
+                int id = Convert.ToInt32(((ClaimsIdentity)User.Identity).Name);
+
+                using (GeneralInsuranceEntities db = new GeneralInsuranceEntities())
+                {
+                    var list = db.CLAIMs.Where(c => c.UserId == id).ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                }
+            }
+            catch (Exception)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 

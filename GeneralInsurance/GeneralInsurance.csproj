@@ -141,6 +141,7 @@
     <Compile Include="Models\ADMIN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminEdit.cs" />
     <Compile Include="Models\CLAIM.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
